@@ -1,9 +1,52 @@
 # Danh sách nhóm
+- Trần Nguyễn Phú Nghĩa - 2312284 
 # Public URL của webservice
 ```
 https://student-management-yv94.onrender.com/students
 ```
 # Hướng dẫn cách chạy
+
+##  Yêu cầu môi trường
+
+Trước khi chạy, cần cài đặt:
+
+- Java 21
+- Maven 3.9+
+- (Tuỳ chọn) Docker nếu muốn build bằng container
+
+## Clone source code
+```
+git clone <repository-url>
+cd student-management
+```
+
+## CẤU HÌNH POSTGRESQL BẰNG BIẾN MÔI TRƯỜNG (ENV)
+Thêm các biến môi trường để kết nối với database 
+```
+POSTGRES_HOST=...
+POSTGRES_PORT=...
+POSTGRES_DB=...
+POSTGRES_USER=...
+POSTGRES_PASSWORD=...
+```
+## Cách ứng dung dùng Docker
+
+1) Build image
+```
+docker build -t student-management .
+```
+
+2) Run container với .env
+Chạy container với các biến môi trường trong file .env 
+```
+docker run -p 8080:8080 --env-file .env student-management
+```
+## Truy cập
+
+Truy cập ứng dụng tại:
+```
+http://localhost:8080/students
+```
 
 # Câu trả lời cho các phần lab
 
@@ -91,5 +134,52 @@ Khi ứng dụng chạy:
 → Dữ liệu trước đó biến mất
 
 
+# Các module 
+![thêm 10 sinh viên](Module.png)
+
+## Cấu trúc mã nguồn (Source Code Structure)
+Ứng dụng được chia thành các lớp (layers) riêng biệt để dễ dàng quản lý và bảo trì:
+
+
+
+- StudentManagementApplication: File thực thi chính (Main class) dùng để khởi chạy toàn bộ ứng dụng Spring Boot.
+- application.properties: File cấu hình hệ thống (kết nối database, cổng server, v.v.).
+
+### Package controller
+
+Lớp điều hướng và xử lý các yêu cầu từ người dùng.
+
+- StudentController: Tiếp nhận các HTTP Request (như GET, POST), gọi đến tầng Service để xử lý dữ liệu và trả về các trang HTML tương ứng hoặc dữ liệu cho phía Client.
+
+### Package service
+
+Lớp xử lý nghiệp vụ (Business Logic).
+
+- StudentService: Nơi thực hiện các tính toán, kiểm tra logic nghiệp vụ trước khi lưu vào database hoặc trả về cho Controller. Nó đóng vai trò trung gian giữa Repository và Controller.
+
+### Package repository
+
+Lớp giao tiếp với cơ sở dữ liệu (Data Access Layer).
+
+- StudentRepository: Thường là một Interface kế thừa từ JpaRepository. Nó cung cấp các phương thức có sẵn để thực hiện các thao tác CRUD (Thêm, Đọc, Sửa, Xóa) xuống database SQLite.
+
+### Package entity
+
+Lớp định nghĩa cấu trúc dữ liệu.
+
+- Student: Đại diện cho bảng (Table) trong cơ sở dữ liệu. Mỗi đối tượng Student sẽ tương ứng với một dòng dữ liệu trong bảng sinh viên.
+
+### Resources & Views
+Phần tài nguyên giao diện của ứng dụng:
+
+1) static/: Chứa các file tĩnh không thay đổi như CSS, JavaScript, và hình ảnh.
+
+2) templates/: Chứa các file giao diện (Thymeleaf HTML):
+
+- students.html: Trang danh sách hiển thị toàn bộ sinh viên.
+
+- student-form.html: Trang biểu mẫu để thêm mới hoặc chỉnh sửa thông tin sinh viên.
+
+- student-detail.html: Trang hiển thị chi tiết thông tin của một sinh viên cụ thể.
 
 
