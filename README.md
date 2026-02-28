@@ -1,9 +1,11 @@
 # Danh sách nhóm
 - Trần Nguyễn Phú Nghĩa - 2312284 
+---
 # Public URL của webservice
 ```
 https://student-management-yv94.onrender.com/students
 ```
+---
 # Hướng dẫn cách chạy
 
 ##  Yêu cầu môi trường
@@ -47,7 +49,7 @@ Truy cập ứng dụng tại:
 ```
 http://localhost:8080/students
 ```
-
+---
 # Câu trả lời cho các phần lab
 
 ## **Lab 1**
@@ -133,11 +135,10 @@ Khi ứng dụng chạy:
 → Database bị reset  
 → Dữ liệu trước đó biến mất
 
-
+---
 # Các module 
 ![thêm 10 sinh viên](Module.png)
 
-## Cấu trúc mã nguồn (Source Code Structure)
 Ứng dụng được chia thành các lớp (layers) riêng biệt để dễ dàng quản lý và bảo trì:
 
 
@@ -181,5 +182,68 @@ Phần tài nguyên giao diện của ứng dụng:
 - student-form.html: Trang biểu mẫu để thêm mới hoặc chỉnh sửa thông tin sinh viên.
 
 - student-detail.html: Trang hiển thị chi tiết thông tin của một sinh viên cụ thể.
+---
+### Danh sách sinh viên
+![thêm 10 sinh viên](module3.png)
+Trang **Danh sách sinh viên** hiển thị toàn bộ dữ liệu sinh viên trong hệ thống dưới dạng bảng trực quan và dễ theo dõi.
+
+### Chức năng chính
+
+-  Hiển thị đầy đủ thông tin: **ID, Họ tên, Email, Tuổi**
+-  Tối ưu hiển thị nhanh bằng **Server-Side Rendering (Thymeleaf)**
+-  Cung cấp các nút thao tác nhanh: **Xem chi tiết – Chỉnh sửa – Xoá**
+-  Tự động cập nhật lại danh sách sau mỗi thao tác **CRUD**
+
+Trang này đóng vai trò là **trung tâm điều hướng chính** của toàn bộ hệ thống quản lý sinh viên.
+
+---
+### Xem chi tiết sinh viên
+![thêm 10 sinh viên](module1.png)
+
+Trang **Chi tiết sinh viên** cho phép người dùng xem đầy đủ thông tin của một sinh viên cụ thể dựa trên ID.
+
+###  Điểm nổi bật
+
+-  Hiển thị thông tin rõ ràng, dễ đọc
+-  Dữ liệu được truy xuất theo **ID từ Backend**
+-  Cho phép quay lại danh sách nhanh chóng
+-  Tách biệt logic theo mô hình:
+    - `Controller` – xử lý request
+    - `Service` – xử lý nghiệp vụ
+    - `Repository` – truy xuất dữ liệu
+
+Trang này giúp người dùng kiểm tra thông tin trước khi thực hiện chỉnh sửa hoặc xoá.
+
+---
+### Thêm, sửa thông tin sinh viên
+![thêm 10 sinh viên](module2.png)
+Trang **Thêm / Chỉnh sửa sinh viên** sử dụng chung một form để xử lý cả hai chức năng.
+
+###  Tính năng chính
+
+-  Form nhập liệu gồm:
+    - Họ tên
+    - Email
+    - Tuổi
+-  Kiểm tra và xác thực dữ liệu (Validation) phía Backend
+-  Tái sử dụng form cho cả:
+    - Thêm mới sinh viên
+    - Cập nhật thông tin sinh viên
+-  Binding dữ liệu tự động thông qua `Thymeleaf Model`
+
+Giải pháp này giúp đảm bảo **tính nhất quán**, **giảm lặp code**, và **dễ bảo trì hệ thống**.
 
 
+---
+### Xoá sinh viên
+![thêm 10 sinh viên](module4.png)
+###  Cơ chế hoạt động
+
+-  Xoá theo **ID cụ thể**
+-  Gọi phương thức `deleteById()` từ `Repository`
+-  Sau khi xoá, hệ thống tự động chuyển hướng về trang danh sách
+-  Có tích hợp thêm **hộp thoại xác nhận (Confirm Dialog)** để tránh thao tác nhầm
+
+Chức năng này đảm bảo dữ liệu được quản lý chính xác và nhất quán trong toàn hệ thống.
+
+---
