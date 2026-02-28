@@ -6,94 +6,97 @@
 
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #eef2f3, #ffffff);
-            padding: 40px;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #eef2f3, #ffffff);
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;  /* thêm dòng này */
+  }
 
-        .card {
-            background: #ffffff;
-            padding: 30px 35px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            width: 400px;
-        }
+          .card {
+              background: #ffffff;
+              padding: 30px 35px;
+              border-radius: 12px;
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+              width: 400px;
+          }
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
+          h2 {
+              text-align: center;
+              color: #333;
+              margin-bottom: 20px;
+          }
 
-        p {
-            margin: 12px 0;
-            font-size: 15px;
-            color: #555;
-        }
+          p {
+              margin: 12px 0;
+              font-size: 15px;
+              color: #555;
+          }
 
-        strong {
-            color: #333;
-        }
+          strong {
+              color: #333;
+          }
 
-        button {
-            margin-top: 15px;
-            padding: 8px 14px;
-            border-radius: 6px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+          button {
+              margin-top: 15px;
+              padding: 8px 14px;
+              border-radius: 6px;
+              border: none;
+              background-color: #4CAF50;
+              color: white;
+              font-weight: 500;
+              cursor: pointer;
+              transition: 0.3s;
+          }
 
-        button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
+          button:hover {
+              background-color: #45a049;
+              transform: scale(1.05);
+          }
 
-        form {
-            display: inline;
-        }
+          form {
+              display: inline;
+          }
 
-        a {
-            text-decoration: none;
-        }
+          a {
+              text-decoration: none;
+          }
 
-        .delete-btn {
-            background-color: #f44336;
-        }
+          .delete-btn {
+              background-color: #f44336;
+          }
 
-        .delete-btn:hover {
-            background-color: #d32f2f;
-        }
+          .delete-btn:hover {
+              background-color: #d32f2f;
+          }
 
-        .back-link {
-            display: block;
-            margin-top: 25px;
-            text-align: center;
-            text-decoration: none;
-            color: #4CAF50;
-            font-weight: 500;
-        }
+          .back-link {
+              display: block;
+              margin-top: 25px;
+              text-align: center;
+              text-decoration: none;
+              color: #4CAF50;
+              font-weight: 500;
+          }
 
-        .back-link:hover {
-            text-decoration: underline;
-        }
+          .back-link:hover {
+              text-decoration: underline;
+          }
 
-        .button-group {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-        }
+          .button-group {
+              margin-top: 15px;
+              display: flex;
+              gap: 10px;
+          }
     </style>
 
 </head>
 <body>
 
+
+<div class="card">
 <h2>Chi Tiết Sinh Viên</h2>
 
 <p><strong>ID:</strong> <span th:text="${student.id}"></span></p>
@@ -101,19 +104,23 @@
 <p><strong>Email:</strong> <span th:text="${student.email}"></span></p>
 <p><strong>Tuổi:</strong> <span th:text="${student.age}"></span></p>
 
-<!-- Nút Chỉnh sửa -->
-<a th:href="@{/students/add/{id}(id=${student.id})}">
-    <button>Chỉnh sửa</button>
-</a>
+    <div class="button-group">
+        <a th:href="@{/students/add/{id}(id=${student.id})}">
+            <button type="button">Chỉnh sửa</button>
+        </a>
 
-<!-- Nút Xoá -->
-<form th:action="@{/students/delete/{id}(id=${student.id})}" method="post"
-      onsubmit="return confirm('Bạn có chắc muốn xoá sinh viên này?');" style="display:inline;">
-    <button type="submit">Xoá</button>
-</form>
+        <form th:action="@{/students/delete/{id}(id=${student.id})}"
+              method="post"
+              onsubmit="return confirm('Bạn có chắc muốn xoá sinh viên này?');">
+            <button type="submit" class="delete-btn">Xoá</button>
+        </form>
+    </div>
 
-<br><br>
-<a th:href="@{/students}">⬅ Quay lại danh sách</a>
+    <a th:href="@{/students}" class="back-link">
+        ⬅ Quay lại danh sách
+    </a>
 
+
+</div>
 </body>
 </html>
